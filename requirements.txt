@@ -1,5 +1,7 @@
 flask
 flask-bootstrap
+flask-login
+Flask-WTF
 pymongo
 gunicorn
 pymodm
