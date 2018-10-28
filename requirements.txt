@@ -1,5 +1,6 @@
 flask
 flask-bootstrap
+flask-user
 pymongo
 gunicorn
 pymodm

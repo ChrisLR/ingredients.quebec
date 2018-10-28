@@ -1,6 +1,7 @@
 import pymodm
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
+from flask_user import UserManager
 
 import models
 
@@ -18,6 +19,16 @@ def connect_to_mongodb():
 # Flask Settings
 application = Flask(__name__)
 Bootstrap(application)
+
+flask_user_settings = {
+    "USER_APP_NAME": "Ingrédients.quebec",
+    "USER_ENABLE_EMAIL": False,
+    "USER_ENABLE_USERNAME": True,
+    "USER_REQUIRE_RETYPE_PASSWORD": True,
+}
+application.config.update(flask_user_settings)
+
+
 
 
 @application.route('/')
@@ -50,4 +61,7 @@ def levuriers():
 
 if __name__ == '__main__':
     connect_to_mongodb()
+    # Setup Flask-User and specify the User data-model
+    db = pymodm.connection._get_db()
+    user_manager = UserManager(application, db, models.User)
     application.run(debug=False, host='0.0.0.0')
